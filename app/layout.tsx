@@ -1,41 +1,29 @@
+
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/Header/page";
+import Footer from "@/components/Footer/page";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Todo App - Next.js",
-  description: "Application de gestion de tâches",
+  title: "MosalaFlow - Gestion de tâches simple et efficace",
+  description: "Organisez votre travail et boostez votre productivité",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="fr">
-      <body className="antialiased">
+    <html lang="fr" suppressHydrationWarning>
+      <body className={inter.className}>
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
 }
-
-
-
-
-
-
-
-
-// import { Geist, Geist_Mono } from "next/font/google";
-
-
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
