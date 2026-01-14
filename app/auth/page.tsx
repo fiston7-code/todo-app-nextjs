@@ -1,8 +1,8 @@
 
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,6 +21,25 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
+
+  
+
+const searchParams = useSearchParams();
+
+useEffect(() => {
+  const errorParam = searchParams?.get('error');
+  const verifiedParam = searchParams?.get('verified');
+  
+  if (errorParam === 'verification-failed') {
+    setError('La vérification de l\'email a échoué. Veuillez réessayer.');
+  }
+  
+  if (verifiedParam === 'true') {
+    setSuccess('Email vérifié ! Vous pouvez maintenant vous connecter.');
+    setIsLogin(true);
+  }
+}, [searchParams]);
  
 
   
@@ -40,39 +59,44 @@ export default function AuthPage() {
         if (error) throw error;
         
         router.push('/dashboard');
-      } else {
-        // Inscription avec metadata
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: {
-              name: name,
-            },
-            emailRedirectTo: `${window.location.origin}/auth/callback`,
+    } else {
+      // Inscription avec metadata
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            name: name,
           },
-        });
+          emailRedirectTo: `${window.location.origin}/auth/callback?next=/welcome`,
+        },
+      });
 
-        if (error) throw error;
-        
-        if (data?.user?.identities?.length === 0) {
-          setError('Cet email est déjà utilisé. Veuillez vous connecter.');
-          setIsLogin(true);
-        } else {
-          setSuccess('Compte créé ! Vérifiez votre email pour confirmer votre inscription.');
-          setName('');
-          setEmail('');
-          setPassword('');
-        }
+      if (error) throw error;
+      
+      if (data?.user?.identities?.length === 0) {
+        setError('Cet email est déjà utilisé. Veuillez vous connecter.');
+        setIsLogin(true);
+      } else {
+        // ✅ Message plus détaillé
+        setSuccess(
+          '🎉 Compte créé avec succès ! Un email de confirmation vient d\'être envoyé à ' + 
+          email + 
+          '. Cliquez sur "Oui, c\'est moi" dans l\'email pour activer votre compte.'
+        );
+        setName('');
+        setEmail('');
+        setPassword('');
       }
-    } catch (error: any) {
-      setError(error.message || 'Une erreur est survenue');
-    } finally {
-      setLoading(false);
     }
-  };
+  } catch (err) {
+    setError(err instanceof Error ? err.message : 'Une erreur est survenue');
+  } finally {
+    setLoading(false);
+  }
+};
 
-  return (
+return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 flex items-center justify-center p-4 transition-colors duration-300">
       
      
@@ -261,3 +285,4 @@ export default function AuthPage() {
     </div>
   );
 }
+

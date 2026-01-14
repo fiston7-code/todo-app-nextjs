@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { PricingPlans } from '@/components/PricingPlans';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { Sparkles, ArrowRight, User } from 'lucide-react';
+import PricingPage from '../pricing/page';
 
 export default function WelcomePage() {
   const [username, setUsername] = useState('');
@@ -21,13 +22,13 @@ export default function WelcomePage() {
       }
 
       const { data } = await supabase
-        .from('profiles')
-        .select('username')
+        .from('users')
+        .select('name')
         .eq('id', user.id)
         .single();
 
-      if (data?.username) {
-        setUsername(data.username);
+      if (data?.name) {
+        setUsername(data.name);
       }
       
       setLoading(false);
@@ -57,7 +58,7 @@ export default function WelcomePage() {
         </div>
         
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-          Bienvenue {username} ! 🎉
+          Bienvenue {User.name} ! 🎉
         </h1>
         
         <p className="text-xl text-gray-600 dark:text-gray-400 mb-2 max-w-2xl mx-auto px-4">
@@ -79,17 +80,7 @@ export default function WelcomePage() {
       </div>
 
       {/* Pricing Section */}
-      <div className="pb-12">
-        <PricingPlans 
-          currentPlan="free" 
-          showCurrentPlanBadge={false}
-          onPlanSelect={(plan) => {
-            if (plan !== 'free') {
-              // Modal will handle the upgrade
-            }
-          }}
-        />
-      </div>
+   <PricingPage/>
 
       {/* Skip Button */}
       <div className="text-center pb-12">
