@@ -91,7 +91,7 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({
                   <div className="text-left flex-1">
                     <div className="font-medium text-gray-900 dark:text-white">Mobile Money</div>
                     <div className="text-sm text-gray-500 dark:text-gray-400">
-                      MTN, Moov, Orange, Wave
+                      Mpesa, Airtel money, Orange money,
                     </div>
                   </div>
                 </button>
@@ -149,7 +149,7 @@ export const UpgradeModal: React.FC<UpgradeModalProps> = ({
                     type="tel"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    placeholder="+229 XX XX XX XX"
+                    placeholder="+243 XX XX XX XX"
                     required
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
                   />

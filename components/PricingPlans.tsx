@@ -90,13 +90,13 @@ export const PricingPlans: React.FC<PricingPlansProps> = ({
             Questions fréquentes
           </h3>
           <div className="space-y-6">
-            <FAQItem
-              question="Puis-je changer de plan à tout moment ?"
-              answer="Oui ! Vous pouvez upgrader ou downgrader votre plan à tout moment. Les changements prennent effet immédiatement."
-            />
+           <FAQItem
+           question="Puis-je changer de forfait à tout moment ?"
+           answer="Oui ! Vous pouvez passer à une offre supérieure ou inférieure quand vous le souhaitez. Les modifications prennent effet immédiatement."
+           />
             <FAQItem
               question="Comment fonctionne le paiement Mobile Money ?"
-              answer="Nous acceptons MTN Mobile Money, Moov Money, Orange Money et Wave. Le paiement est sécurisé et instantané."
+              answer="Nous acceptons Mpesa, airtel Money, Orange Money et Visa. Le paiement est sécurisé et instantané."
             />
             <FAQItem
               question="Y a-t-il des frais cachés ?"

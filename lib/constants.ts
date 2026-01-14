@@ -45,7 +45,7 @@ export const PLAN_FEATURES = {
   },
   pro: {
     name: 'Pro',
-    price: 10,
+    price: 6000,
      priceUnit: "/mois",
     features: [
       'Projets illimités',
@@ -63,7 +63,7 @@ export const PLAN_FEATURES = {
   },
   business: {
     name: 'Business',
-    price: 25,
+    price: 18000,
       priceUnit: '/utilisateur/mois',
     features: [
       'Tout du plan Pro',
@@ -108,10 +108,10 @@ export const STATUS_LABELS = {
 
 // ==================== MOBILE MONEY ====================
 export const MOBILE_MONEY_PROVIDERS = [
-  { value: 'mtn', label: 'MTN Mobile Money', icon: '📱' },
-  { value: 'moov', label: 'Moov Money', icon: '💰' },
+  { value: 'Mpesa', label: 'Mpesa', icon: '📱' },
+  { value: 'airtel', label: 'airtel Money', icon: '💰' },
   { value: 'orange', label: 'Orange Money', icon: '🍊' },
-  { value: 'wave', label: 'Wave', icon: '🌊' },
+  { value: 'visa', label: 'visa', icon: '🌊' },
 ] as const;
 
 // ==================== PROJECT COLORS ====================

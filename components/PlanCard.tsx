@@ -95,9 +95,14 @@ export const PlanCard: React.FC<PlanCardProps> = ({
       {/* Price */}
       <div className="mb-6">
         <div className="flex items-baseline">
+         
           <span className="text-5xl font-bold text-gray-900 dark:text-white">
-            {price}€
-          </span>
+         {new Intl.NumberFormat('fr-CD', { 
+          style: 'currency', 
+         currency: 'CDF',
+         minimumFractionDigits: 0 // Souvent les prix en FC n'ont pas de centimes
+         }).format(price)}
+        </span>
           <span className="ml-2 text-gray-500 dark:text-gray-400">
             /mois
           </span>

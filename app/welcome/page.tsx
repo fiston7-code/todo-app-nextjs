@@ -58,7 +58,7 @@ export default function WelcomePage() {
         </div>
         
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-          Bienvenue {User.name} ! 🎉
+          Bienvenue {username} ! 🎉
         </h1>
         
         <p className="text-xl text-gray-600 dark:text-gray-400 mb-2 max-w-2xl mx-auto px-4">

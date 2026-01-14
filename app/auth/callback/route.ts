@@ -64,15 +64,15 @@ export async function GET(request: NextRequest) {
     console.log('✅ Session créée pour:', data.user?.email);
 
     // ✅ Vérifie si c'est un nouvel utilisateur
-    const isNewUser = data.user?.created_at && 
-      (new Date().getTime() - new Date(data.user.created_at).getTime()) < 60 * 1000; // 1 minute
+    const isNewUser = data.user?.user_metadata?.is_new_user === true
 
-    // ✅ Redirige selon le statut
-    if (isNewUser) {
-      return NextResponse.redirect(new URL('/welcome?new=true', request.url));
-    } else {
-      return NextResponse.redirect(new URL(next, request.url));
-    }
+if (isNewUser) {
+  return NextResponse.redirect(new URL('/welcome', request.url))
+}
+
+return NextResponse.redirect(new URL('/dashboard', request.url))
+
+   
 
   } catch (error) {
     console.error('Erreur inattendue dans callback:', error);

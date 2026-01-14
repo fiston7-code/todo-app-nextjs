@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { Menu, Search, Bell, User, LogOut, Moon, Sun } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Menu, Search, Bell, User, LogOut} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -24,12 +24,27 @@ interface HeaderProps {
 export default function Header({ onMenuClick }: HeaderProps) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
+  const [userName, setUserName] = useState<string | null>(null);
 
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     router.push('/auth');
   };
+
+   useEffect(() => {
+      const getUser = async () => {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          // On récupère le nom dans les metadata (celui envoyé lors du signUp)
+          // Sinon on prend l'email, sinon 'Utilisateur' par défaut
+          const name = user.user_metadata?.name || user.email?.split('@')[0] || 'Utilisateur';
+          setUserName(name);
+        }
+      };
+  
+      getUser();
+    }, []);
 
   return (
     <header className="sticky top-0 z-30 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
@@ -88,7 +103,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="rounded-full dark:hover:bg-gray-700">
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
-                  U
+                  {userName ? userName[0].toUpperCase() : 'U'}
                 </div>
               </Button>
             </DropdownMenuTrigger>

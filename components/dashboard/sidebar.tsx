@@ -1,5 +1,6 @@
 'use client';
-
+import { useState, useEffect } from 'react'; // Ajoutez ceci
+import { supabase } from '@/lib/supabase'; // Vérifiez le chemin vers votre client
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -16,11 +17,14 @@ import {
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { getUserPlan } from '@/lib/supabaseHelpers';
+import { PlanType } from '@/types/planTypes';
+
 
 const navigation = [
   { name: 'Tableau de bord', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Calendrier', href: '/dashboard/calendar', icon: Calendar },
-  { name: 'Paramètres', href: '/dashboard/settings', icon: Settings },
+  { name: 'Calendrier', href: '/dashboard/calendar', icon: Calendar, proOnly: true },
+  { name: 'Paramètres', href: '/dashboard/settings', icon: Settings, proOnly: true },
 ];
 
 const categories = [
@@ -38,6 +42,34 @@ interface SidebarProps {
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
+  const [userName, setUserName] = useState<string | null>(null);
+  const [plan, setPlan] = useState<PlanType>('free');
+
+
+
+
+
+
+  useEffect(() => {
+  const loadUser = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) return;
+
+    const name =
+      user.user_metadata?.name ||
+      user.email?.split('@')[0] ||
+      'Utilisateur';
+
+    setUserName(name);
+
+    const userPlan = await getUserPlan(user.id);
+    setPlan(userPlan);
+  };
+
+  loadUser();
+}, []);
+
 
   return (
     <>
@@ -55,7 +87,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           {/* Navigation */}
           <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
             {/* Navigation principale */}
-            <div className="space-y-1">
+            {/* <div className="space-y-1">
               {navigation.map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
@@ -76,7 +108,42 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                   </Link>
                 );
               })}
-            </div>
+            </div> */}
+
+            {navigation.map((item) => {
+  const Icon = item.icon;
+  const isActive = pathname === item.href;
+  const isLocked = item.proOnly && plan === 'free';
+
+  return (
+    <div key={item.name} className="relative">
+      <Link
+        href={isLocked ? '#' : item.href}
+        onClick={(e) => {
+          if (isLocked) e.preventDefault();
+        }}
+        className={cn(
+          'flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors',
+          isActive && !isLocked
+            ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+            : 'text-gray-700 dark:text-gray-300',
+          isLocked &&
+            'opacity-50 cursor-not-allowed hover:bg-transparent'
+        )}
+      >
+        <Icon className="w-5 h-5" />
+        <span>{item.name}</span>
+
+        {isLocked && (
+          <span className="ml-auto text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded">
+            PRO
+          </span>
+        )}
+      </Link>
+    </div>
+  );
+})}
+
 
             {/* Catégories */}
             <div className="pt-6 mt-6 border-t border-gray-200 dark:border-gray-700">
@@ -115,13 +182,16 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           <div className="p-4 border-t border-gray-200 dark:border-gray-700">
             <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-semibold">
-                U
+                {userName ? userName[0].toUpperCase() : 'U'}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                  Utilisateur
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Version gratuite</p>
+               <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+              {/* 4. REMPLACER "Utilisateur" par la variable ci-dessous */}
+              {userName|| 'Chargement...'}
+            </p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+              Version gratuite
+            </p>
               </div>
             </div>
           </div>
@@ -215,14 +285,14 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           {/* User section */}
           <div className="p-4 border-t border-gray-200 dark:border-gray-700">
             <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-semibold">
-                U
-              </div>
+             <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-semibold">
+              {userName ? userName[0].toUpperCase() : 'U'}
+               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
-                  Utilisateur
+                  {userName || 'Chargement...'} {/* Remplacez 'Utilisateur' par ceci */}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Version gratuite</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Version gratuit</p>
               </div>
             </div>
           </div>

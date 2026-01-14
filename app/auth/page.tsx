@@ -58,7 +58,7 @@ useEffect(() => {
 
         if (error) throw error;
         
-        router.push('/dashboard');
+        router.push('/welcome');
     } else {
       // Inscription avec metadata
       const { data, error } = await supabase.auth.signUp({
@@ -67,6 +67,7 @@ useEffect(() => {
         options: {
           data: {
             name: name,
+            is_new_user: true,
           },
           emailRedirectTo: `${window.location.origin}/auth/callback?next=/welcome`,
         },
