@@ -97,10 +97,7 @@ useEffect(() => {
 };
 
 return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 flex items-center justify-center p-4 transition-colors duration-300">
-      
-     
-
+    <div>
       <div className="w-full max-w-md">
         
         {/* Back Button */}
@@ -289,7 +286,7 @@ return (
 // 2. Le composant principal exporté par défaut
 export default function AuthPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 flex items-center justify-center p-4 transition-colors duration-300">
       <Suspense fallback={<Loader2 className="h-10 w-10 animate-spin text-blue-600" />}>
         <AuthForm />
       </Suspense>
