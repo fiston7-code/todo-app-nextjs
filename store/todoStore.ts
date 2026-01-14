@@ -8,7 +8,7 @@ interface TodoState {
   loading: boolean;
   error: string | null;
   
-  fetchTodos: () => Promise<void>;
+  fetchTodos: (userId: string) => Promise<void>; // ✅ Ajout du paramètre
   addTodo: (title: string, userId: string) => Promise<void>;
   toggleTodo: (id: string, currentStatus: boolean) => Promise<void>;
   deleteTodo: (id: string) => Promise<void>;
@@ -19,12 +19,13 @@ export const useTodoStore = create<TodoState>((set) => ({
   loading: false,
   error: null,
 
-  fetchTodos: async () => {
+  fetchTodos: async (userId: string) => { // ✅ Ajout du paramètre
     set({ loading: true, error: null });
     try {
       const { data, error } = await supabase
         .from('todos')
         .select('*')
+        .eq('user_id', userId) // ✅ Filtre par user_id
         .order('created_at', { ascending: false });
 
       if (error) throw error;

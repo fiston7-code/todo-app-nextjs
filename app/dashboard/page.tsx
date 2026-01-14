@@ -5,8 +5,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { useTodoStore } from '@/store/todoStore';
-import { useThemeStore } from '@/store/theme-store';
-import { useThemeInit } from '@/hooks/use-theme-init';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
@@ -28,10 +27,8 @@ export default function Dashboard() {
   const [newTodo, setNewTodo] = useState('');
   const [userName, setUserName] = useState('');
   const { todos, fetchTodos, addTodo, toggleTodo, deleteTodo } = useTodoStore();
-  const { theme, toggleTheme } = useThemeStore();
 
-  // Initialiser le thème
-  useThemeInit();
+ 
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -106,17 +103,7 @@ export default function Dashboard() {
             
             <div className="flex items-center gap-2">
               {/* Theme Toggle */}
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? (
-                  <Sun className="w-5 h-5 text-yellow-500" />
-                ) : (
-                  <Moon className="w-5 h-5 text-gray-700" />
-                )}
-              </button>
+          
               
               <Button 
                 variant="outline" 

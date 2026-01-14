@@ -43,12 +43,12 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     <>
       {/* Sidebar Desktop */}
       <aside className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
-        <div className="flex flex-col flex-1 min-h-0 bg-white border-r border-gray-200">
+        <div className="flex flex-col flex-1 min-h-0 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
           {/* Logo */}
-          <div className="flex items-center h-16 px-6 border-b border-gray-200">
+          <div className="flex items-center h-16 px-6 border-b border-gray-200 dark:border-gray-700">
             <Link href="/dashboard" className="flex items-center gap-2">
               <span className="text-2xl">📝</span>
-              <span className="text-xl font-bold text-gray-900">Mosala</span>
+              <span className="text-xl font-bold text-gray-900 dark:text-white">Mosala</span>
             </Link>
           </div>
 
@@ -67,8 +67,8 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                     className={cn(
                       'flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors',
                       isActive
-                        ? 'bg-blue-50 text-blue-700'
-                        : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                        ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
                     )}
                   >
                     <Icon className="w-5 h-5" />
@@ -79,8 +79,8 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             </div>
 
             {/* Catégories */}
-            <div className="pt-6 mt-6 border-t border-gray-200">
-              <h3 className="px-3 mb-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            <div className="pt-6 mt-6 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="px-3 mb-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Catégories
               </h3>
               <div className="space-y-1">
@@ -89,7 +89,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                   return (
                     <button
                       key={category.name}
-                      className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                     >
                       <div className="flex items-center gap-3">
                         <div
@@ -101,7 +101,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                         <Icon className="w-4 h-4" />
                         <span>{category.name}</span>
                       </div>
-                      <Badge variant="secondary" className="text-xs">
+                      <Badge variant="secondary" className="text-xs dark:bg-gray-700 dark:text-gray-300">
                         {category.count}
                       </Badge>
                     </button>
@@ -112,16 +112,16 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           </nav>
 
           {/* User section (bottom) */}
-          <div className="p-4 border-t border-gray-200">
-            <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50">
+          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-semibold">
                 U
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">
+                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                   Utilisateur
                 </p>
-                <p className="text-xs text-gray-500 truncate">Version gratuite</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Version gratuite</p>
               </div>
             </div>
           </div>
@@ -131,24 +131,24 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Sidebar Mobile */}
       <aside
         className={cn(
-          'fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-in-out lg:hidden',
+          'fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transform transition-transform duration-300 ease-in-out lg:hidden',
           isOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
         <div className="flex flex-col h-full">
           {/* Logo + Close button */}
-          <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200">
+          <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200 dark:border-gray-700">
             <Link href="/dashboard" className="flex items-center gap-2">
               <span className="text-2xl">📝</span>
-              <span className="text-xl font-bold text-gray-900">Mosala</span>
+              <span className="text-xl font-bold text-gray-900 dark:text-white">Mosala</span>
             </Link>
             <Button
               variant="ghost"
               size="icon"
               onClick={onClose}
-              className="lg:hidden"
+              className="lg:hidden dark:hover:bg-gray-700"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5 text-gray-700 dark:text-gray-300" />
             </Button>
           </div>
 
@@ -168,8 +168,8 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                     className={cn(
                       'flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors',
                       isActive
-                        ? 'bg-blue-50 text-blue-700'
-                        : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                        ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
                     )}
                   >
                     <Icon className="w-5 h-5" />
@@ -180,8 +180,8 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             </div>
 
             {/* Catégories */}
-            <div className="pt-6 mt-6 border-t border-gray-200">
-              <h3 className="px-3 mb-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            <div className="pt-6 mt-6 border-t border-gray-200 dark:border-gray-700">
+              <h3 className="px-3 mb-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                 Catégories
               </h3>
               <div className="space-y-1">
@@ -190,7 +190,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                   return (
                     <button
                       key={category.name}
-                      className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                     >
                       <div className="flex items-center gap-3">
                         <div
@@ -202,7 +202,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                         <Icon className="w-4 h-4" />
                         <span>{category.name}</span>
                       </div>
-                      <Badge variant="secondary" className="text-xs">
+                      <Badge variant="secondary" className="text-xs dark:bg-gray-700 dark:text-gray-300">
                         {category.count}
                       </Badge>
                     </button>
@@ -213,16 +213,16 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           </nav>
 
           {/* User section */}
-          <div className="p-4 border-t border-gray-200">
-            <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50">
+          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-semibold">
                 U
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">
+                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                   Utilisateur
                 </p>
-                <p className="text-xs text-gray-500 truncate">Version gratuite</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Version gratuite</p>
               </div>
             </div>
           </div>

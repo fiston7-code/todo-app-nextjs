@@ -47,13 +47,7 @@ export function Header() {
               </Button>
             </Link>
 
-            <Link href="/auth">
-              <Button 
-                className="bg- from-blue-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium text-sm sm:text-base px-3 sm:px-4"
-              >
-                Commencer
-              </Button>
-            </Link>
+          
           </div>
         </div>
       </div>
