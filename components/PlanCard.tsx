@@ -96,7 +96,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
       <div className="mb-6">
         <div className="flex items-baseline">
          
-          <span className="text-5xl font-bold text-gray-900 dark:text-white">
+          <span className="text-2xl font-bold text-gray-900 dark:text-white">
          {new Intl.NumberFormat('fr-CD', { 
           style: 'currency', 
          currency: 'CDF',
