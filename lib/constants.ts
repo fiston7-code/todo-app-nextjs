@@ -32,6 +32,7 @@ export const PLAN_FEATURES = {
   free: {
     name: 'Gratuit',
     price: 0,
+     priceUnit: "/mois", // ✅ Ajout
     features: [
       'Jusqu\'à 3 projets',
       'Tâches illimitées',
@@ -45,6 +46,7 @@ export const PLAN_FEATURES = {
   pro: {
     name: 'Pro',
     price: 10,
+     priceUnit: "/mois",
     features: [
       'Projets illimités',
       'Tags personnalisés',
@@ -62,7 +64,7 @@ export const PLAN_FEATURES = {
   business: {
     name: 'Business',
     price: 25,
-    priceUnit: 'par utilisateur',
+      priceUnit: '/utilisateur/mois',
     features: [
       'Tout du plan Pro',
       'Collaboration en temps réel',

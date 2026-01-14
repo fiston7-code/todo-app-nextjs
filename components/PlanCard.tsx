@@ -10,7 +10,7 @@ interface PlanCardProps {
   name: string;
   price: number;
   priceUnit?: string;
-  features: string[];
+  features:  readonly string[];
   isCurrentPlan: boolean;
   isPopular?: boolean;
   showCurrentPlanBadge?: boolean;
